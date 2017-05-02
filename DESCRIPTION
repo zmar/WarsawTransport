@@ -1,0 +1,10 @@
+Package: WarsawTransport
+Title: Commute cost calculator - Warsaw (Poland)
+Version: 0.1.0
+Author: Zbyszek Marczewski
+Description: A collection of functions to calculates costs of transport by 
+    car and public means of transport in Warsaw (Poland).
+Depends: R (>= 3.3.0)
+License: What license is it under?
+Encoding: UTF-8
+LazyData: true
