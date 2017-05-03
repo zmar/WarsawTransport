@@ -1,3 +1,4 @@
+#' @export
 tickets_costs_daily_ZTM <- function(travel_time, discount, zone, warszawiak) {
     # obsluga wyjatkow travel_time
     if (length(travel_time) != 1) {
@@ -51,7 +52,7 @@ tickets_costs_daily_ZTM <- function(travel_time, discount, zone, warszawiak) {
     tickets <- ceiling(travel_time/ztm_prices$time_min) * ceiling(1/ceiling(ztm_prices$time_min/1440))
     # koszt biletow
     tickets_cost <- tickets * ztm_prices$price
-    return(list(ztm_ticket = ztm_prices[tickets_cost == min(tickets_cost[filter]) & filter, ], number_of_tickets = tickets[tickets_cost == 
+    return(list(ztm_ticket = ztm_prices[tickets_cost == min(tickets_cost[filter]) & filter, ], number_of_tickets = tickets[tickets_cost ==
         min(tickets_cost[filter]) & filter], tickets_cost = tickets_cost[tickets_cost == min(tickets_cost[filter]) & filter]))
 }
 
@@ -111,7 +112,7 @@ tickets_costs_monthly_ZTM <- function(travel_time, discount, zone, warszawiak) {
     tickets <- ceiling(travel_time/ztm_prices$time_min) * ceiling(20/ceiling(ztm_prices$time_min/1440))
     # koszt biletow
     tickets_cost <- tickets * ztm_prices$price
-    return(list(ztm_ticket = ztm_prices[tickets_cost == min(tickets_cost[filter]) & filter, ], number_of_tickets = tickets[tickets_cost == 
+    return(list(ztm_ticket = ztm_prices[tickets_cost == min(tickets_cost[filter]) & filter, ], number_of_tickets = tickets[tickets_cost ==
         min(tickets_cost[filter]) & filter], tickets_cost = tickets_cost[tickets_cost == min(tickets_cost[filter]) & filter]))
 }
 
@@ -169,6 +170,6 @@ tickets_costs_annual_ZTM <- function(travel_time, discount, zone, warszawiak) {
     tickets <- ceiling(travel_time/ztm_prices$time_min) * ceiling(365/ceiling(ztm_prices$time_min/1440))
     # koszt biletow
     tickets_cost <- tickets * ztm_prices$price
-    return(list(ztm_ticket = ztm_prices[tickets_cost == min(tickets_cost[filter]) & filter, ], number_of_tickets = tickets[tickets_cost == 
+    return(list(ztm_ticket = ztm_prices[tickets_cost == min(tickets_cost[filter]) & filter, ], number_of_tickets = tickets[tickets_cost ==
         min(tickets_cost[filter]) & filter], tickets_cost = tickets_cost[tickets_cost == min(tickets_cost[filter]) & filter]))
 }

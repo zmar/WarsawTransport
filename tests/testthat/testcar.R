@@ -6,8 +6,13 @@ test_that("car_travel_cost correct results", {
   expect_equal(car_travel_cost(START = "Warszawa", STOP="Lublin",combustion = 1, fuel_price = 1)$fuel_amount, 1.69288)
   expect_equal(car_travel_cost(START = "Warszawa", STOP="Lublin",combustion = 1, fuel_price = 1)$fuel_cost, 1.69288)
   expect_equal(car_travel_cost(START = "Warszawa", STOP="Lublin",combustion = 1, fuel_price = 1)$fuel_price_per_traveler, 1.69288)
-  # expect_equal(car_travel_cost("ab"), 2)
-  # expect_equal(car_travel_cost("abc"), 3)
+})
+
+test_that("car_travel_cost incorrect START and STOP results in NA", {
+  expect_equal(car_travel_cost(START = "askjdhakjsd", STOP="dasdd",combustion = 1, fuel_price = 1)$distance, NA)
+  expect_equal(car_travel_cost(START = "askjdhakjsd", STOP="dasdd",combustion = 1, fuel_price = 1)$fuel_amount, NA)
+  expect_equal(car_travel_cost(START = "askjdhakjsd", STOP="dasdd",combustion = 1, fuel_price = 1)$fuel_cost, NA)
+  expect_equal(car_travel_cost(START = "askjdhakjsd", STOP="dasdd",combustion = 1, fuel_price = 1)$fuel_price_per_traveler, NA)
 })
 
 # test_that("car_travel_cost of factor is length of level", {

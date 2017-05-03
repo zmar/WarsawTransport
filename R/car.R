@@ -7,6 +7,7 @@
 #' car_travel_cost(START="plac Defilad 1, 00-901 Warszawa Polska",
 #' STOP="Stanisława Kostki Potockiego 10/16, Warszawa Polska",
 #' combustion=8, fuel_price=4.5, travelers_number = 1)
+#' @export
 car_travel_cost <- function(START, STOP, combustion, fuel_price, travelers_number = 1) {
     # obsluga wyjatkow START & STOP
     if (length(START) != 1 | length(STOP) != 1) {
@@ -66,7 +67,7 @@ car_travel_cost <- function(START, STOP, combustion, fuel_price, travelers_numbe
 #' STOP="Stanisława Kostki Potockiego 10/16, Warszawa Polska",
 #' combustion=8, fuel_price=4.5, travelers_number = 1,
 #' insurence_fee=1000, parking_time=8)
-
+#' @export
 car_costs <- function(START, STOP, travelers_number, combustion, fuel_price, insurence_fee, parking_time) {
     if (length(insurence_fee) != 1) {
         stop("insurence_fee musi być pojedyncza liczba - wektorem klasy 'numeric' o dlugosic 1")
