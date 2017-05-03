@@ -9,9 +9,9 @@
 #'   \item{Lp}{ID number}
 #'   \item{zone}{ticket zone}
 #'   \item{time_min}{validity time in minutes}
-#'   \item{discount}{the right to 50\% discount}
+#'   \item{discount}{Entitlement to a discount of 50\%}
 #'   \item{price}{standard price - fare}
-#'   \item{Warszawiak}{the right to Varsovian ticket discount}
+#'   \item{Warszawiak}{Entitlement to a Varsovian ticket discount}
 #'   \item{name}{Types of ticket}
 #'   ...
 #' }

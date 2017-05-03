@@ -20,7 +20,6 @@ car_travel_cost(START, STOP, fuel_consumption, fuel_price,
 }
 \value{
 car_travel_cost returns a list containing following components:
-    fuel_price_per_traveler
   \item{distance}{distance of travel in km}
   \item{fuel_amount}{Amount of fuel in liters}
   \item{fuel_cost}{Amount of fuel in PLN}

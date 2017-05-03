@@ -9,10 +9,10 @@ test_that("car_travel_cost correct results", {
 })
 
 test_that("car_travel_cost incorrect START and STOP results in NA", {
-  expect_equal(car_travel_cost(START = "askjdhakjsd", STOP="dasdd",fuel_consumption = 1, fuel_price = 1)$distance, NA)
-  expect_equal(car_travel_cost(START = "askjdhakjsd", STOP="dasdd",fuel_consumption = 1, fuel_price = 1)$fuel_amount, NA)
-  expect_equal(car_travel_cost(START = "askjdhakjsd", STOP="dasdd",fuel_consumption = 1, fuel_price = 1)$fuel_cost, NA)
-  expect_equal(car_travel_cost(START = "askjdhakjsd", STOP="dasdd",fuel_consumption = 1, fuel_price = 1)$fuel_cost_per_traveler, NA)
+  expect_equal(car_travel_cost(START = "askjdhakjsd", STOP="dasdd",fuel_consumption = 1, fuel_price = 1)$distance, NA_integer_)
+  expect_equal(car_travel_cost(START = "askjdhakjsd", STOP="dasdd",fuel_consumption = 1, fuel_price = 1)$fuel_amount, NA_integer_)
+  expect_equal(car_travel_cost(START = "askjdhakjsd", STOP="dasdd",fuel_consumption = 1, fuel_price = 1)$fuel_cost, NA_integer_)
+  expect_equal(car_travel_cost(START = "askjdhakjsd", STOP="dasdd",fuel_consumption = 1, fuel_price = 1)$fuel_cost_per_traveler, NA_integer_)
 })
 
 # test_that("car_travel_cost of factor is length of level", {

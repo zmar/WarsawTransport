@@ -1,3 +1,16 @@
+#' Calculate minimal daily cost of optimal ticket
+#'
+#' @description tickets_costs_daily_ZTM chooses optimat tickets and calculates minimal daily cost of commuting by warsaw public transport.
+#' @param travel_time numeric. Daily travel time in minutes.
+#' @param discount ligical. Entitlement to a discount of 50\%.
+#' @param zone numeric. Ticket zone 1, 2 or 3 - 3 means zone 1 and 2
+#' @param warszawiak logical. Entitlement to a Varsovian ticket discount
+#' @return tickets_costs_daily_ZTM returns a list containing following components
+#'   \item{ztm_ticket}{data.frame. Attributes of optimal ticket}
+#'   \item{number_of_tickets}{Number of optimal tickets}
+#'   \item{tickets_cost}{Minimal total daily cost of commuting for optimal tickets}
+#' @examples
+#' tickets_costs_daily_ZTM(travel_time=60, discount=TRUE, zone=1, warszawiak=TRUE)
 #' @export
 tickets_costs_daily_ZTM <- function(travel_time, discount, zone, warszawiak) {
     # obsluga wyjatkow travel_time
@@ -55,10 +68,21 @@ tickets_costs_daily_ZTM <- function(travel_time, discount, zone, warszawiak) {
     return(list(ztm_ticket = ztm_prices[tickets_cost == min(tickets_cost[filter]) & filter, ], number_of_tickets = tickets[tickets_cost ==
         min(tickets_cost[filter]) & filter], tickets_cost = tickets_cost[tickets_cost == min(tickets_cost[filter]) & filter]))
 }
-
-
-
-
+#' Calculate minimal monthly cost of optimal ticket
+#'
+#' @description tickets_costs_monthly_ZTM chooses optimat tickets and calculates minimal monthly
+#' cost of commuting by warsaw public transport.
+#' @param travel_time numeric. Daily travel time in minutes.
+#' @param discount ligical. Entitlement to a discount of 50\%.
+#' @param zone numeric. Ticket zone 1, 2 or 3 (3 means zone 1 & 2)
+#' @param warszawiak logical. Entitlement to a Varsovian ticket discount
+#' @return tickets_costs_monthly_ZTM returns a list containing following components:
+#'   \item{ztm_ticket}{data.frame. Attributes of optimal ticket}
+#'   \item{number_of_tickets}{Number of optimal tickets}
+#'   \item{tickets_cost}{Minimal total daily cost of commuting for optimal tickets}
+#' @examples
+#' tickets_costs_monthly_ZTM(travel_time=60, discount=TRUE, zone=1, warszawiak=TRUE)
+#' @export
 tickets_costs_monthly_ZTM <- function(travel_time, discount, zone, warszawiak) {
     # obsluga wyjatkow travel_time
     if (length(travel_time) != 1) {
@@ -115,8 +139,21 @@ tickets_costs_monthly_ZTM <- function(travel_time, discount, zone, warszawiak) {
     return(list(ztm_ticket = ztm_prices[tickets_cost == min(tickets_cost[filter]) & filter, ], number_of_tickets = tickets[tickets_cost ==
         min(tickets_cost[filter]) & filter], tickets_cost = tickets_cost[tickets_cost == min(tickets_cost[filter]) & filter]))
 }
-
-
+#' Calculate minimal annual cost of optimal ticket
+#'
+#' @description tickets_costs_annual_ZTM chooses optimat tickets and calculates minimal monthly
+#' cost of commuting by warsaw public transport.
+#' @param travel_time numeric. Daily travel time in minutes.
+#' @param discount ligical. Entitlement to a discount of 50\%.
+#' @param zone numeric. Ticket zone 1, 2 or 3 (3 means zone 1 & 2)
+#' @param warszawiak logical. Entitlement to a Varsovian ticket discount
+#' @return tickets_costs_annual_ZTM returns a list containing following components:
+#'   \item{ztm_ticket}{data.frame. Attributes of optimal ticket}
+#'   \item{number_of_tickets}{Number of optimal tickets}
+#'   \item{tickets_cost}{Minimal total annual cost of commuting for optimal tickets}
+#' @examples
+#' tickets_costs_annual_ZTM(travel_time=60, discount=TRUE, zone=1, warszawiak=TRUE)
+#' @export
 tickets_costs_annual_ZTM <- function(travel_time, discount, zone, warszawiak) {
     # obsluga wyjatkow travel_time
     if (length(travel_time) != 1) {

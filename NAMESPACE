@@ -3,4 +3,6 @@
 export(car_costs)
 export(car_travel_cost)
 export(cost_of_parking)
+export(tickets_costs_annual_ZTM)
 export(tickets_costs_daily_ZTM)
+export(tickets_costs_monthly_ZTM)

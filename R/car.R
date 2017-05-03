@@ -7,7 +7,6 @@
 #' @param fuel_price numeric. Fuel price in PLN
 #' @param travelers_number numeric. Number of travelers. Default value is 1.
 #' @return car_travel_cost returns a list containing following components:
-#'     fuel_price_per_traveler
 #'   \item{distance}{distance of travel in km}
 #'   \item{fuel_amount}{Amount of fuel in liters}
 #'   \item{fuel_cost}{Amount of fuel in PLN}
