@@ -1,4 +1,11 @@
-car_travel_cost <- function(START, STOP, combustion, cena_benzyny, travelers_number = 1) {
+#' Calculate distans, amount of petrol, cost of petrol, cost of petrol for a given travel by car
+#'
+#' @param START character. An adress of starting point.
+#' @param STOP character. An adresss of destination.
+#' @return car_travel_cost returns a list containing following components
+#' @examples
+#' car_travel_cost(START="plac Defilad 1, 00-901 Warszawa Polska", STOP="Stanisława Kostki Potockiego 10/16, Warszawa Polska", combustion=8, fuel_price=4.5, travelers_number = 1)
+car_travel_cost <- function(START, STOP, combustion, fuel_price, travelers_number = 1) {
     # obsluga wyjatkow START & STOP
     if (length(START) != 1 | length(STOP) != 1) {
         stop("START i STOP muszą być pojedynczymi wyrażeniami - wektorami klasy 'character' o długości 1")
@@ -29,28 +36,27 @@ car_travel_cost <- function(START, STOP, combustion, cena_benzyny, travelers_num
     if (combustion <= 0 | combustion > 15) {
         stop("combustion musi sie zawierac w przedziale (0,15]")
     }
-    # obsluga wyjatkow cena_benzyny
-    if (length(cena_benzyny) != 1) {
-        stop("cena_benzyny musi byc pojedyncza liczba - wektorem klasy 'numeric' o dlugosic 1")
+    # obsluga wyjatkow fuel_price
+    if (length(fuel_price) != 1) {
+        stop("fuel_price musi byc pojedyncza liczba - wektorem klasy 'numeric' o dlugosic 1")
     }
-    if (is.numeric(cena_benzyny) == FALSE) {
-        stop("cena_benzyny musi byc klasy 'numeric'")
+    if (is.numeric(fuel_price) == FALSE) {
+        stop("fuel_price musi byc klasy 'numeric'")
     }
-    if (cena_benzyny <= 0 | cena_benzyny > 10) {
-        stop("cena_benzyny musi byc z zakresu (0,10]")
+    if (fuel_price <= 0 | fuel_price > 10) {
+        stop("fuel_price musi byc z zakresu (0,10]")
     }
     FROM <- stringi::stri_enc_toutf8(START)
     TO <- stringi::stri_enc_toutf8(STOP)
     Google_Maps_Query <- mapdist(FROM, TO, mode = "driving")
     benzyna <- Google_Maps_Query$km/100 * combustion
-    koszt_benzyny <- cena_benzyny * benzyna
-    koszt_benzyny_na_osobe <- cena_benzyny * benzyna/travelers_number
-    # w dwie strony
+    koszt_benzyny <- fuel_price * benzyna
+    koszt_benzyny_na_osobe <- fuel_price * benzyna/travelers_number
     return(list(dystans = Google_Maps_Query$km, ilosc_benzyny = benzyna, koszt_benzyny = koszt_benzyny, koszt_benzyny_na_osobe = koszt_benzyny_na_osobe))
 }
 
 
-car_costs <- function(START, STOP, travelers_number, combustion, cena_benzyny, insurence_fee, parking_time) {
+car_costs <- function(START, STOP, travelers_number, combustion, fuel_price, insurence_fee, parking_time) {
     if (length(insurence_fee) != 1) {
         stop("insurence_fee musi być pojedyncza liczba - wektorem klasy 'numeric' o dlugosic 1")
     }
@@ -63,7 +69,7 @@ car_costs <- function(START, STOP, travelers_number, combustion, cena_benzyny, i
     if (length(insurence_fee) != 1) {
         stop("insurence_fee musi być wektorem o długości 1 (skalar)")
     }
-    car_total_cost <- car_travel_cost(START = START, STOP = STOP, travelers_number = travelers_number, combustion = combustion, 
-        cena_benzyny = cena_benzyny) + insurence_fee/365 + cost_of_parking(parking_time = parking_time)
+    car_total_cost <- car_travel_cost(START = START, STOP = STOP, travelers_number = travelers_number, combustion = combustion,
+        fuel_price = fuel_price) + insurence_fee/365 + cost_of_parking(parking_time = parking_time)
     return(car_total_cost)
 }
