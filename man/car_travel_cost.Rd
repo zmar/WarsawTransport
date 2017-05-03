@@ -2,23 +2,35 @@
 % Please edit documentation in R/car.R
 \name{car_travel_cost}
 \alias{car_travel_cost}
-\title{Calculate distans, amount of petrol, cost of petrol, cost of petrol for a given travel by car}
+\title{Calculates cost for a given travel by car}
 \usage{
-car_travel_cost(START, STOP, combustion, fuel_price, travelers_number = 1)
+car_travel_cost(START, STOP, fuel_consumption, fuel_price,
+  travelers_number = 1)
 }
 \arguments{
-\item{START}{character. An adress of starting point.}
+\item{START}{character. An address of starting point.}
 
-\item{STOP}{character. An adresss of destination.}
+\item{STOP}{character. An address of destination.}
+
+\item{fuel_consumption}{numeric. Fuel consumption expressed as liters per 100 kilometers (L/100 km)}
+
+\item{fuel_price}{numeric. Fuel price in PLN}
+
+\item{travelers_number}{numeric. Number of travelers. Default value is 1.}
 }
 \value{
-car_travel_cost returns a list containing following components
+car_travel_cost returns a list containing following components:
+    fuel_price_per_traveler
+  \item{distance}{distance of travel in km}
+  \item{fuel_amount}{Amount of fuel in liters}
+  \item{fuel_cost}{Amount of fuel in PLN}
+  \item{fuel_cost_per_traveler}{Cost of fuel per traveler}
 }
 \description{
-Calculate distans, amount of petrol, cost of petrol, cost of petrol for a given travel by car
+car_travel_cost calculates distans, amount of petrol, cost of petrol, cost of petrol for a given travel by car
 }
 \examples{
 car_travel_cost(START="plac Defilad 1, 00-901 Warszawa Polska",
 STOP="Stanisława Kostki Potockiego 10/16, Warszawa Polska",
-combustion=8, fuel_price=4.5, travelers_number = 1)
+fuel_consumption=8, fuel_price=4.5, travelers_number = 1)
 }

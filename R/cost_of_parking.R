@@ -1,3 +1,10 @@
+#' Calculate cost for parking
+#'
+#' @description cost_of_parking calculates cost of parking in the paid parking zone in Warsaw.
+#' @param parking_time numeric. Parking time in hours.
+#' @return car_travel_cost returns daily cost of parking in the paid parking zone in Warsaw.
+#' @examples
+#' cost_of_parking(parking_time=3)
 #' @export
 cost_of_parking <- function(parking_time) {
     if (length(parking_time) != 1) {

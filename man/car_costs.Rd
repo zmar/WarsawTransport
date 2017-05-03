@@ -4,16 +4,26 @@
 \alias{car_costs}
 \title{Calculate total car travel cost}
 \usage{
-car_costs(START, STOP, travelers_number, combustion, fuel_price, insurence_fee,
-  parking_time)
+car_costs(START, STOP, travelers_number, fuel_consumption, fuel_price,
+  insurence_fee, parking_time)
 }
 \arguments{
-\item{START}{character. An adress of starting point.}
+\item{START}{character. An address of starting point.}
 
-\item{STOP}{character. An adresss of destination.}
+\item{STOP}{character. An address of destination.}
+
+\item{travelers_number}{numeric. Number of travelers. Default value is 1.}
+
+\item{fuel_consumption}{numeric. Fuel consumption expressed as liters per 100 kilometers (L/100 km)}
+
+\item{fuel_price}{numeric. Fuel price in PLN}
+
+\item{insurence_fee}{numeric. Annual car insurance cost in PLN.}
+
+\item{parking_time}{numeric. Parking time in hours.}
 }
 \value{
-car_costs returns a cost of car travel pre traveler
+car_costs returns a cost of car travel per traveler in PLN
 }
 \description{
 Calculate total car travel cost
@@ -21,6 +31,6 @@ Calculate total car travel cost
 \examples{
 car_travel_cost(START="plac Defilad 1, 00-901 Warszawa Polska",
 STOP="Stanisława Kostki Potockiego 10/16, Warszawa Polska",
-combustion=8, fuel_price=4.5, travelers_number = 1,
+fuel_consumption=8, fuel_price=4.5, travelers_number = 1,
 insurence_fee=1000, parking_time=8)
 }
