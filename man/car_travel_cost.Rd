@@ -4,7 +4,7 @@
 \alias{car_travel_cost}
 \title{Calculate distans, amount of petrol, cost of petrol, cost of petrol for a given travel by car}
 \usage{
-car_travel_cost(START, STOP, combustion, cena_benzyny, travelers_number = 1)
+car_travel_cost(START, STOP, combustion, fuel_price, travelers_number = 1)
 }
 \arguments{
 \item{START}{character. An adress of starting point.}
@@ -18,5 +18,7 @@ car_travel_cost returns a list containing following components
 Calculate distans, amount of petrol, cost of petrol, cost of petrol for a given travel by car
 }
 \examples{
-car_travel_cost(START="plac Defilad 1, 00-901 Warszawa Polska", STOP="Stanisława Kostki Potockiego 10/16, Warszawa Polska", combustion=8, cena_benzyny=4.5, travelers_number = 1)
+car_travel_cost(START="plac Defilad 1, 00-901 Warszawa Polska",
+STOP="Stanisława Kostki Potockiego 10/16, Warszawa Polska",
+combustion=8, fuel_price=4.5, travelers_number = 1)
 }
