@@ -8,7 +8,7 @@
 #' @return tickets_costs_daily_ZTM returns a list containing following components
 #'   \item{ztm_ticket}{data.frame. Attributes of optimal ticket}
 #'   \item{number_of_tickets}{Number of optimal tickets}
-#'   \item{tickets_cost}{Minimal total daily cost of commuting for optimal tickets}
+#'   \item{tickets_cost}{Minimal total daily cost of commuting for optimal tickets in PLN}
 #' @examples
 #' tickets_costs_daily_ZTM(travel_time=60, discount=TRUE, zone=1, warszawiak=TRUE)
 #' @export
@@ -33,6 +33,9 @@ tickets_costs_daily_ZTM <- function(travel_time, discount, zone, warszawiak) {
     # obsluga wyjatkow zona
     if (length(zone) != 1) {
         stop("Błąd w zmiennej zone. Podaj pojedyncza wartosc 1, 2 lub 3")
+    }
+    if ( is.numeric(zone) == FALSE) {
+      stop("Błąd w zmiennej zone. Podaj pojedyncza wartość 'numeric' 1, 2 lub 3")
     }
     if ((zone %in% 1:3) == FALSE) {
         stop("Błąd w zmiennej zone. Podaj pojedyncza wartość 1, 2 lub 3")
@@ -79,7 +82,7 @@ tickets_costs_daily_ZTM <- function(travel_time, discount, zone, warszawiak) {
 #' @return tickets_costs_monthly_ZTM returns a list containing following components:
 #'   \item{ztm_ticket}{data.frame. Attributes of optimal ticket}
 #'   \item{number_of_tickets}{Number of optimal tickets}
-#'   \item{tickets_cost}{Minimal total daily cost of commuting for optimal tickets}
+#'   \item{tickets_cost}{Minimal total daily cost of commuting for optimal tickets in PLN}
 #' @examples
 #' tickets_costs_monthly_ZTM(travel_time=60, discount=TRUE, zone=1, warszawiak=TRUE)
 #' @export
@@ -104,6 +107,9 @@ tickets_costs_monthly_ZTM <- function(travel_time, discount, zone, warszawiak) {
     # obsluga wyjatkow zona
     if (length(zone) != 1) {
         stop("Błąd w zmiennej zone. Podaj pojedyncza wartosc 1, 2 lub 3")
+    }
+    if ( is.numeric(zone) == FALSE) {
+      stop("Błąd w zmiennej zone. Podaj pojedyncza wartość 'numeric' 1, 2 lub 3")
     }
     if ((zone %in% 1:3) == FALSE) {
         stop("Błąd w zmiennej zone. Podaj pojedyncza wartość 1, 2 lub 3")
@@ -141,7 +147,7 @@ tickets_costs_monthly_ZTM <- function(travel_time, discount, zone, warszawiak) {
 }
 #' Calculate minimal annual cost of optimal ticket
 #'
-#' @description tickets_costs_annual_ZTM chooses optimat tickets and calculates minimal monthly
+#' @description tickets_costs_annual_ZTM chooses optimat tickets and calculates minimal annual
 #' cost of commuting by warsaw public transport.
 #' @param travel_time numeric. Daily travel time in minutes.
 #' @param discount ligical. Entitlement to a discount of 50\%.
@@ -150,7 +156,7 @@ tickets_costs_monthly_ZTM <- function(travel_time, discount, zone, warszawiak) {
 #' @return tickets_costs_annual_ZTM returns a list containing following components:
 #'   \item{ztm_ticket}{data.frame. Attributes of optimal ticket}
 #'   \item{number_of_tickets}{Number of optimal tickets}
-#'   \item{tickets_cost}{Minimal total annual cost of commuting for optimal tickets}
+#'   \item{tickets_cost}{Minimal total annual cost of commuting for optimal tickets in PLN}
 #' @examples
 #' tickets_costs_annual_ZTM(travel_time=60, discount=TRUE, zone=1, warszawiak=TRUE)
 #' @export
@@ -175,6 +181,9 @@ tickets_costs_annual_ZTM <- function(travel_time, discount, zone, warszawiak) {
     # obsluga wyjatkow zona
     if (length(zone) != 1) {
         stop("Błąd w zmiennej zone. Podaj pojedyncza wartosc 1, 2 lub 3")
+    }
+    if ( is.numeric(zone) == FALSE) {
+      stop("Błąd w zmiennej zone. Podaj pojedyncza wartość 'numeric' 1, 2 lub 3")
     }
     if ((zone %in% 1:3) == FALSE) {
         stop("Błąd w zmiennej zone. Podaj pojedyncza wartość 1, 2 lub 3")

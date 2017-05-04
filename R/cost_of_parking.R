@@ -8,13 +8,13 @@
 #' @export
 cost_of_parking <- function(parking_time) {
     if (length(parking_time) != 1) {
-        stop("Cza parkowania musi być liczbą, czyli wektorem klasy 'numeric' o długości 1 (skalarem).")
+        stop("Czas parkowania musi byc liczba, czyli wektorem klasy 'numeric' o dlugosci 1 (skalarem).")
     }
     if (is.numeric(parking_time) == FALSE) {
-        stop("Podaj czas parkowania liczbowo w godzinach np. półtorej godziny to 1.5 - klasa obiektu  'numeric'")
+        stop("Podaj czas parkowania liczbowo w godzinach np. poltorej godziny to 1.5 - klasa obiektu  'numeric'")
     }
     if (parking_time > 24 | parking_time < 0) {
-        stop("Czas parkowania musi zawierać się w przedziale [0,24] godzin.")
+        stop("Czas parkowania musi zawierac sis w przedziale [0,24] godzin.")
     }
     minutes <- parking_time%%1
     hours <- floor(parking_time)

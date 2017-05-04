@@ -2,10 +2,10 @@ library(WarsawTransport)
 context("car_travel_cost")
 
 test_that("car_travel_cost correct results", {
-  expect_equal(car_travel_cost(START = "Warszawa", STOP="Lublin",fuel_consumption = 1, fuel_price = 1)$distance, 169.288)
-  expect_equal(car_travel_cost(START = "Warszawa", STOP="Lublin",fuel_consumption = 1, fuel_price = 1)$fuel_amount, 1.69288)
-  expect_equal(car_travel_cost(START = "Warszawa", STOP="Lublin",fuel_consumption = 1, fuel_price = 1)$fuel_cost, 1.69288)
-  expect_equal(car_travel_cost(START = "Warszawa", STOP="Lublin",fuel_consumption = 1, fuel_price = 1)$fuel_cost_per_traveler, 1.69288)
+  expect_equal(car_travel_cost(START = "Lublin", STOP="Warszawa",fuel_consumption = 1, fuel_price = 1)$distance, 170.07)
+  expect_equal(car_travel_cost(START = "Lublin", STOP="Warszawa",fuel_consumption = 1, fuel_price = 1)$fuel_amount, 1.7007)
+  expect_equal(car_travel_cost(START = "Lublin", STOP="Warszawa",fuel_consumption = 1, fuel_price = 1)$fuel_cost, 1.7007)
+  expect_equal(car_travel_cost(START = "Lublin", STOP="Warszawa",fuel_consumption = 1, fuel_price = 1)$fuel_cost_per_traveler, 1.7007)
 })
 
 test_that("car_travel_cost incorrect START and STOP results in NA", {
@@ -15,14 +15,24 @@ test_that("car_travel_cost incorrect START and STOP results in NA", {
   expect_equal(car_travel_cost(START = "askjdhakjsd", STOP="dasdd",fuel_consumption = 1, fuel_price = 1)$fuel_cost_per_traveler, NA_integer_)
 })
 
-# test_that("car_travel_cost of factor is length of level", {
-#   expect_equal(car_travel_cost(factor("a")), 1)
-#   expect_equal(car_travel_cost(factor("ab")), 2)
-#   expect_equal(car_travel_cost(factor("abc")), 3)
-# })
-#
-# test_that("car_travel_cost of missing is missing", {
-#   expect_equal(car_travel_cost(NA), NA_integer_)
-#   expect_equal(car_travel_cost(c(NA, 1)), c(NA, 1))
-#   expect_equal(car_travel_cost("NA"), 2)
-# })
+test_that("car_travel_cost incorrect input", {
+  expect_error(car_travel_cost(START = "Lublin", STOP="Warszawa",fuel_consumption = "1", fuel_price = 1)$distance)
+  expect_error(car_travel_cost(START = "Lublin", STOP="Warszawa",fuel_consumption = 1, fuel_price = "1")$fuel_amount)
+  expect_error(car_travel_cost(START = "Lublin", STOP="Warszawa",fuel_consumption = c(1,1), fuel_price = 1)$fuel_cost)
+  expect_error(car_travel_cost(START = "Lublin", STOP="Warszawa",fuel_consumption = 1, fuel_price = c(1,1))$fuel_cost_per_traveler)
+})
+
+
+context("car_costs")
+
+test_that("car_costs correct results", {
+  expect_equal(car_costs(START = "Lublin", STOP="Warszawa",fuel_consumption = 1, fuel_price = 1,insurence_fee = 100,parking_time = 1,travelers_number = 1), 4.974673-3.97e-07)
+})
+
+test_that("car_costs incorrect results", {
+  expect_error(car_costs(START = "Lublin", STOP="Warszawa",fuel_consumption = c(1,1), fuel_price = 1,insurence_fee = 100,parking_time = 1,travelers_number = 1))
+  expect_error(car_costs(START = "Lublin", STOP="Warszawa",fuel_consumption = 1, fuel_price = c(1,1),insurence_fee = 100,parking_time = 1,travelers_number = 1))
+  expect_error(car_costs(START = "Lublin", STOP="Warszawa",fuel_consumption = 1, fuel_price = 1,insurence_fee = c(1,1),parking_time = 1,travelers_number = 1))
+  expect_error(car_costs(START = "Lublin", STOP="Warszawa",fuel_consumption = 1, fuel_price = 1,insurence_fee = 100,parking_time = c(1,1),travelers_number = 1))
+  expect_error(car_costs(START = "Lublin", STOP="Warszawa",fuel_consumption = 1, fuel_price = 1,insurence_fee = 100,parking_time = c(1,1),travelers_number = c(1,1)))
+})
