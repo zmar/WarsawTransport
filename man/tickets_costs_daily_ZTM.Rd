@@ -19,7 +19,7 @@ tickets_costs_daily_ZTM(travel_time, discount, zone, warszawiak)
 tickets_costs_daily_ZTM returns a list containing following components
   \item{ztm_ticket}{data.frame. Attributes of optimal ticket}
   \item{number_of_tickets}{Number of optimal tickets}
-  \item{tickets_cost}{Minimal total daily cost of commuting for optimal tickets}
+  \item{tickets_cost}{Minimal total daily cost of commuting for optimal tickets in PLN}
 }
 \description{
 tickets_costs_daily_ZTM chooses optimat tickets and calculates minimal daily cost of commuting by warsaw public transport.

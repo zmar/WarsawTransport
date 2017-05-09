@@ -25,7 +25,7 @@ tickets_costs_daily_ZTM <- function(travel_time, discount, zone, warszawiak) {
     }
     # obsluga wyjatkow discount
     if (length(discount) != 1) {
-        stop("Błąd w zmiennej dicount. Podaj pojedyncza wartosc 'TRUE' lub 'FALSE'")
+        stop("Błąd w zmiennej discount. Podaj pojedyncza wartosc 'TRUE' lub 'FALSE'")
     }
     if (is.logical(discount) == FALSE) {
         stop("Błąd w zmiennej discount. Podaj wartość logiczna 'TRUE' lub 'FALSE'")

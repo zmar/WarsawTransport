@@ -4,13 +4,13 @@
 \alias{car_travel_cost}
 \title{Calculates cost for a given travel by car}
 \usage{
-car_travel_cost(START, STOP, fuel_consumption, fuel_price,
+car_travel_cost(start_point, finish_point, fuel_consumption, fuel_price,
   travelers_number = 1)
 }
 \arguments{
-\item{START}{character. An address of starting point.}
+\item{start_point}{character. An address of start_pointing point.}
 
-\item{STOP}{character. An address of destination.}
+\item{finish_point}{character. An address of destination.}
 
 \item{fuel_consumption}{numeric. Fuel consumption expressed as liters per 100 kilometers (L/100 km)}
 
@@ -29,7 +29,7 @@ car_travel_cost returns a list containing following components:
 car_travel_cost calculates distans, amount of petrol, cost of petrol, cost of petrol for a given travel by car
 }
 \examples{
-car_travel_cost(START="plac Defilad 1, 00-901 Warszawa Polska",
-STOP="Stanisława Kostki Potockiego 10/16, Warszawa Polska",
+car_travel_cost(start_point="plac Defilad 1, 00-901 Warszawa Polska",
+finish_point="plac Zamkowy 4 Warszawa Polska",
 fuel_consumption=8, fuel_price=4.5, travelers_number = 1)
 }
