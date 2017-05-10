@@ -29,7 +29,7 @@ car_costs returns a cost of car travel per traveler in PLN
 Calculate total car travel cost
 }
 \examples{
-car_travel_cost(start_point="plac Defilad 1, 00-901 Warszawa Polska",
+car_costs(start_point="plac Defilad 1, 00-901 Warszawa Polska",
 finish_point="plac Zamkowy 4 Warszawa Polska",
 fuel_consumption=8, fuel_price=4.5, travelers_number = 1,
 insurence_fee=1000, parking_time=8)
