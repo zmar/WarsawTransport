@@ -4,57 +4,60 @@
 #' @param travel_time numeric. Daily travel time in minutes.
 #' @param discount ligical. Entitlement to a discount of 50\%.
 #' @param zone numeric. Ticket zone 1, 2 or 3 - 3 means zone 1 and 2
-#' @param warszawiak logical. Entitlement to a Varsovian ticket discount
+#' @param varsovian logical. Entitlement to a Varsovian ticket discount
 #' @return tickets_costs_daily_ZTM returns a list containing following components
 #'   \item{ztm_ticket}{data.frame. Attributes of optimal ticket}
 #'   \item{number_of_tickets}{Number of optimal tickets}
 #'   \item{tickets_cost}{Minimal total daily cost of commuting for optimal tickets in PLN}
 #' @examples
-#' tickets_costs_daily_ZTM(travel_time=60, discount=TRUE, zone=1, warszawiak=TRUE)
+#' tickets_costs_daily_ZTM(travel_time=60, discount=TRUE, zone=1, varsovian=TRUE)
 #' @export
-tickets_costs_daily_ZTM <- function(travel_time, discount, zone, warszawiak) {
-    # obsluga wyjatkow travel_time
+tickets_costs_daily_ZTM <- function(travel_time, discount, zone, varsovian) {
+    # Exception handling for travel_time argument
     if (length(travel_time) != 1) {
-        stop("travel_time musi byc pojedyncza liczba, czyli wektorem klasy 'numeric' o dlugosci 1")
+        stop("Error: argument travel_time is not a vector of length 1. Please enter travel_time as numeric vector of length 1.")
     }
     if (is.numeric(travel_time) == FALSE) {
-        stop("Błąd w czasie podróży. Podaj zmienną 'numeric' z przedziału (0,1440), czyli czas podróży w minutach, gdzie 1440 oznacza 24h")
+        stop("Error: argument travel_time is not numeric. Please enter travel_time as numeric vector of length 1.")
     }
     if (travel_time <= 0 & travel_time > 1440) {
-        stop("Błąd w zmiennej travel_time. Podaj liczbe z przedziału (0,1440], czyli czas podróży w minutach, gdzie 1440 oznacza 24h")
+        stop("Error: argument travel_time is smaller than or equal to 0 or greater than 1440. Please enter numeric from range (0,1440].")
     }
-    # obsluga wyjatkow discount
+    # Exception handling for discount argument
     if (length(discount) != 1) {
-        stop("Błąd w zmiennej discount. Podaj pojedyncza wartosc 'TRUE' lub 'FALSE'")
+        stop("Error: argument discount is not a vector of length 1. Please enter TRUE or FALSE.")
     }
     if (is.logical(discount) == FALSE) {
-        stop("Błąd w zmiennej discount. Podaj wartość logiczna 'TRUE' lub 'FALSE'")
+        stop("Error: argument discount is not logical. Please enter TRUE or FALSE.")
     }
-    # obsluga wyjatkow zona
+    # Exception handling for zone argument
     if (length(zone) != 1) {
-        stop("Błąd w zmiennej zone. Podaj pojedyncza wartosc 1, 2 lub 3")
+        stop("Error: argument zone is not a vector of length 1. Please enter integer 1, 2 or 3")
     }
     if ( is.numeric(zone) == FALSE) {
-      stop("Błąd w zmiennej zone. Podaj pojedyncza wartość 'numeric' 1, 2 lub 3")
+      stop("Error: argument zone is not numeric. Please enter zone as integer 1, 2 or 3.")
     }
     if ((zone %in% 1:3) == FALSE) {
-        stop("Błąd w zmiennej zone. Podaj pojedyncza wartość 1, 2 lub 3")
+        stop("Error: argument zone is incorrect. Please enter integer 1, 2 or 3")
     }
-    # obsluga wyjatkow warszawiak
-    if (length(warszawiak) != 1) {
-        stop("Błąd w zmiennej warszawiak. Podaj pojedyncza wartosc 'TRUE' lub 'FALSE'")
+    # Exception handling for varsovian argument
+    if (length(varsovian) != 1) {
+        stop("Error: argument varsovian is not a vector of length 1. Please enter TRUE or FALSE.")
     }
-    if (is.logical(warszawiak) == FALSE) {
-        stop("Błąd w zmiennej warszawiaka. Podaj wartość 'TRUE' lub 'FALSE'")
+    if (is.logical(varsovian) == FALSE) {
+        stop("Error: argument varsovian is not logical. Please enter TRUE or FALSE.")
     }
-    # filtr ze wzgledu na przywileje warszawiaka
-    if (warszawiak == FALSE) {
-        warszawiak_filter <- FALSE
+    # varsovian filter indicates what kind of tariff you are granted - regular (FALSE) or regular and varsovian (FALSE and TRUE)) )
+    if (varsovian == FALSE) {
+        # only regular tariff
+        varsovian_filter <- FALSE
     } else {
-        warszawiak_filter <- c(FALSE, TRUE)
+        # regular and varsovian tariff
+        varsovian_filter <- c(FALSE, TRUE)
     }
-    # filtr ze wzgledu na strefe
+    # zone_filter indicates what kind of tariff zone you are travelling through: 1, 2 or 1 and 2 (3)
     if (zone == 1) {
+        # you are allowed to
         zone_filter <- c(1, 3)
     } else {
         if (zone == 2) {
@@ -64,7 +67,7 @@ tickets_costs_daily_ZTM <- function(travel_time, discount, zone, warszawiak) {
         }
     }
     # Filtr
-    filter <- (ztm_prices$discount == discount & (ztm_prices$zone %in% zone_filter) & (ztm_prices$Warszawiak %in% warszawiak_filter))
+    filter <- (ztm_prices$discount == discount & (ztm_prices$zone %in% zone_filter) & (ztm_prices$varsovian %in% varsovian_filter))
     tickets <- ceiling(travel_time/ztm_prices$time_min) * ceiling(1/ceiling(ztm_prices$time_min/1440))
     # koszt biletow
     tickets_cost <- tickets * ztm_prices$price
@@ -78,54 +81,54 @@ tickets_costs_daily_ZTM <- function(travel_time, discount, zone, warszawiak) {
 #' @param travel_time numeric. Daily travel time in minutes.
 #' @param discount ligical. Entitlement to a discount of 50\%.
 #' @param zone numeric. Ticket zone 1, 2 or 3 (3 means zone 1 & 2)
-#' @param warszawiak logical. Entitlement to a Varsovian ticket discount
+#' @param varsovian logical. Entitlement to a Varsovian ticket discount
 #' @return tickets_costs_monthly_ZTM returns a list containing following components:
 #'   \item{ztm_ticket}{data.frame. Attributes of optimal ticket}
 #'   \item{number_of_tickets}{Number of optimal tickets}
 #'   \item{tickets_cost}{Minimal total daily cost of commuting for optimal tickets in PLN}
 #' @examples
-#' tickets_costs_monthly_ZTM(travel_time=60, discount=TRUE, zone=1, warszawiak=TRUE)
+#' tickets_costs_monthly_ZTM(travel_time=60, discount=TRUE, zone=1, varsovian=TRUE)
 #' @export
-tickets_costs_monthly_ZTM <- function(travel_time, discount, zone, warszawiak) {
-    # obsluga wyjatkow travel_time
+tickets_costs_monthly_ZTM <- function(travel_time, discount, zone, varsovian) {
+    # Exception handling for travel_time argument
     if (length(travel_time) != 1) {
-        stop("travel_time musi byc pojedyncza liczba, czyli wektorem klasy 'numeric' o dlugosci 1")
+      stop("Error: argument travel_time is not a vector of length 1. Please enter travel_time as numeric vector of length 1.")
     }
     if (is.numeric(travel_time) == FALSE) {
-        stop("Błąd w czasie podróży. Podaj zmienną 'numeric' z przedziału (0,1440), czyli czas podróży w minutach, gdzie 1440 oznacza 24h")
+      stop("Error: argument travel_time is not numeric. Please enter travel_time as numeric vector of length 1.")
     }
     if (travel_time <= 0 & travel_time > 1440) {
-        stop("Błąd w zmiennej travel_time. Podaj liczbe z przedziału (0,1440], czyli czas podróży w minutach, gdzie 1440 oznacza 24h")
+      stop("Error: argument travel_time is smaller than or equal to 0 or greater than 1440. Please enter numeric from range (0,1440].")
     }
-    # obsluga wyjatkow discount
+    # Exception handling for discount argument
     if (length(discount) != 1) {
-        stop("Błąd w zmiennej dicount. Podaj pojedyncza wartosc 'TRUE' lub 'FALSE'")
+      stop("Error: argument discount is not a vector of length 1. Please enter TRUE or FALSE.")
     }
     if (is.logical(discount) == FALSE) {
-        stop("Błąd w zmiennej discount. Podaj wartość logiczna 'TRUE' lub 'FALSE'")
+      stop("Error: argument discount is not logical. Please enter TRUE or FALSE.")
     }
-    # obsluga wyjatkow zona
+    # Exception handling for zone argument
     if (length(zone) != 1) {
-        stop("Błąd w zmiennej zone. Podaj pojedyncza wartosc 1, 2 lub 3")
+      stop("Error: argument zone is not a vector of length 1. Please enter integer 1, 2 or 3")
     }
     if ( is.numeric(zone) == FALSE) {
-      stop("Błąd w zmiennej zone. Podaj pojedyncza wartość 'numeric' 1, 2 lub 3")
+      stop("Error: argument zone is not numeric. Please enter zone as integer 1, 2 or 3.")
     }
     if ((zone %in% 1:3) == FALSE) {
-        stop("Błąd w zmiennej zone. Podaj pojedyncza wartość 1, 2 lub 3")
+      stop("Error: argument zone is incorrect. Please enter integer 1, 2 or 3")
     }
-    # obsluga wyjatkow warszawiak
-    if (length(warszawiak) != 1) {
-        stop("Błąd w zmiennej warszawiak. Podaj pojedyncza wartosc 'TRUE' lub 'FALSE'")
+    # Exception handling for varsovian argument
+    if (length(varsovian) != 1) {
+      stop("Error: argument varsovian is not a vector of length 1. Please enter TRUE or FALSE.")
     }
-    if (is.logical(warszawiak) == FALSE) {
-        stop("Błąd w zmiennej warszawiaka. Podaj wartość 'TRUE' lub 'FALSE'")
+    if (is.logical(varsovian) == FALSE) {
+      stop("Error: argument varsovian is not logical. Please enter TRUE or FALSE.")
     }
-    # filtr ze wzgledu na przywileje warszawiaka
-    if (warszawiak == FALSE) {
-        warszawiak_filter <- FALSE
+    # filtr ze wzgledu na przywileje varsoviana
+    if (varsovian == FALSE) {
+        varsovian_filter <- FALSE
     } else {
-        warszawiak_filter <- c(FALSE, TRUE)
+        varsovian_filter <- c(FALSE, TRUE)
     }
     # filtr ze wzgledu na strefe
     if (zone == 1) {
@@ -138,7 +141,7 @@ tickets_costs_monthly_ZTM <- function(travel_time, discount, zone, warszawiak) {
         }
     }
     # Filtr
-    filter <- (ztm_prices$discount == discount & (ztm_prices$zone %in% zone_filter) & (ztm_prices$Warszawiak %in% warszawiak_filter))
+    filter <- (ztm_prices$discount == discount & (ztm_prices$zone %in% zone_filter) & (ztm_prices$varsovian %in% varsovian_filter))
     tickets <- ceiling(travel_time/ztm_prices$time_min) * ceiling(20/ceiling(ztm_prices$time_min/1440))
     # koszt biletow
     tickets_cost <- tickets * ztm_prices$price
@@ -152,54 +155,54 @@ tickets_costs_monthly_ZTM <- function(travel_time, discount, zone, warszawiak) {
 #' @param travel_time numeric. Daily travel time in minutes.
 #' @param discount ligical. Entitlement to a discount of 50\%.
 #' @param zone numeric. Ticket zone 1, 2 or 3 (3 means zone 1 & 2)
-#' @param warszawiak logical. Entitlement to a Varsovian ticket discount
+#' @param varsovian logical. Entitlement to a Varsovian ticket discount
 #' @return tickets_costs_annual_ZTM returns a list containing following components:
 #'   \item{ztm_ticket}{data.frame. Attributes of optimal ticket}
 #'   \item{number_of_tickets}{Number of optimal tickets}
 #'   \item{tickets_cost}{Minimal total annual cost of commuting for optimal tickets in PLN}
 #' @examples
-#' tickets_costs_annual_ZTM(travel_time=60, discount=TRUE, zone=1, warszawiak=TRUE)
+#' tickets_costs_annual_ZTM(travel_time=60, discount=TRUE, zone=1, varsovian=TRUE)
 #' @export
-tickets_costs_annual_ZTM <- function(travel_time, discount, zone, warszawiak) {
-    # obsluga wyjatkow travel_time
+tickets_costs_annual_ZTM <- function(travel_time, discount, zone, varsovian) {
+    # Exception handling for travel_time argument
     if (length(travel_time) != 1) {
-        stop("travel_time musi byc pojedyncza liczba, czyli wektorem klasy 'numeric' o dlugosci 1")
+      stop("Error: argument travel_time is not a vector of length 1. Please enter travel_time as numeric vector of length 1.")
     }
     if (is.numeric(travel_time) == FALSE) {
-        stop("Błąd w czasie podróży. Podaj zmienną 'numeric' z przedziału (0,1440), czyli czas podróży w minutach, gdzie 1440 oznacza 24h")
+      stop("Error: argument travel_time is not numeric. Please enter travel_time as numeric vector of length 1.")
     }
     if (travel_time <= 0 & travel_time > 1440) {
-        stop("Błąd w zmiennej travel_time. Podaj liczbe z przedziału (0,1440], czyli czas podróży w minutach, gdzie 1440 oznacza 24h")
+      stop("Error: argument travel_time is smaller than or equal to 0 or greater than 1440. Please enter numeric from range (0,1440].")
     }
-    # obsluga wyjatkow discount
+    # Exception handling for discount argument
     if (length(discount) != 1) {
-        stop("Błąd w zmiennej dicount. Podaj pojedyncza wartosc 'TRUE' lub 'FALSE'")
+      stop("Error: argument discount is not a vector of length 1. Please enter TRUE or FALSE.")
     }
     if (is.logical(discount) == FALSE) {
-        stop("Błąd w zmiennej discount. Podaj wartość logiczna 'TRUE' lub 'FALSE'")
+      stop("Error: argument discount is not logical. Please enter TRUE or FALSE.")
     }
-    # obsluga wyjatkow zona
+    # Exception handling for zone argument
     if (length(zone) != 1) {
-        stop("Błąd w zmiennej zone. Podaj pojedyncza wartosc 1, 2 lub 3")
+      stop("Error: argument zone is not a vector of length 1. Please enter integer 1, 2 or 3")
     }
     if ( is.numeric(zone) == FALSE) {
-      stop("Błąd w zmiennej zone. Podaj pojedyncza wartość 'numeric' 1, 2 lub 3")
+      stop("Error: argument zone is not numeric. Please enter zone as integer 1, 2 or 3.")
     }
     if ((zone %in% 1:3) == FALSE) {
-        stop("Błąd w zmiennej zone. Podaj pojedyncza wartość 1, 2 lub 3")
+      stop("Error: argument zone is incorrect. Please enter integer 1, 2 or 3")
     }
-    # obsluga wyjatkow warszawiak
-    if (length(warszawiak) != 1) {
-        stop("Błąd w zmiennej warszawiak. Podaj pojedyncza wartosc 'TRUE' lub 'FALSE'")
+    # Exception handling for varsovian argument
+    if (length(varsovian) != 1) {
+      stop("Error: argument varsovian is not a vector of length 1. Please enter TRUE or FALSE.")
     }
-    if (is.logical(warszawiak) == FALSE) {
-        stop("Błąd w zmiennej warszawiaka. Podaj wartość 'TRUE' lub 'FALSE'")
+    if (is.logical(varsovian) == FALSE) {
+      stop("Error: argument varsovian is not logical. Please enter TRUE or FALSE.")
     }
-    # filtr ze wzgledu na przywileje warszawiaka
-    if (warszawiak == FALSE) {
-        warszawiak_filter <- FALSE
+    # filtr ze wzgledu na przywileje varsoviana
+    if (varsovian == FALSE) {
+        varsovian_filter <- FALSE
     } else {
-        warszawiak_filter <- c(FALSE, TRUE)
+        varsovian_filter <- c(FALSE, TRUE)
     }
     # filtr ze wzgledu na strefe
     if (zone == 1) {
@@ -212,7 +215,7 @@ tickets_costs_annual_ZTM <- function(travel_time, discount, zone, warszawiak) {
         }
     }
     # Filtr
-    filter <- (ztm_prices$discount == discount & (ztm_prices$zone %in% zone_filter) & (ztm_prices$Warszawiak %in% warszawiak_filter))
+    filter <- (ztm_prices$discount == discount & (ztm_prices$zone %in% zone_filter) & (ztm_prices$varsovian %in% varsovian_filter))
     tickets <- ceiling(travel_time/ztm_prices$time_min) * ceiling(365/ceiling(ztm_prices$time_min/1440))
     # koszt biletow
     tickets_cost <- tickets * ztm_prices$price

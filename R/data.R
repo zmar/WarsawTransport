@@ -11,8 +11,7 @@
 #'   \item{time_min}{validity time in minutes}
 #'   \item{discount}{Entitlement to a discount of 50\%}
 #'   \item{price}{standard price - fare}
-#'   \item{Warszawiak}{Entitlement to a Varsovian ticket discount}
+#'   \item{varsovian}{Entitlement to a Varsovian ticket discount}
 #'   \item{name}{Types of ticket}
-#'   ...
 #' }
 "ztm_price_table"

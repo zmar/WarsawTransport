@@ -4,7 +4,7 @@
 \alias{tickets_costs_daily_ZTM}
 \title{Calculate minimal daily cost of optimal ticket}
 \usage{
-tickets_costs_daily_ZTM(travel_time, discount, zone, warszawiak)
+tickets_costs_daily_ZTM(travel_time, discount, zone, varsovian)
 }
 \arguments{
 \item{travel_time}{numeric. Daily travel time in minutes.}
@@ -13,7 +13,7 @@ tickets_costs_daily_ZTM(travel_time, discount, zone, warszawiak)
 
 \item{zone}{numeric. Ticket zone 1, 2 or 3 - 3 means zone 1 and 2}
 
-\item{warszawiak}{logical. Entitlement to a Varsovian ticket discount}
+\item{varsovian}{logical. Entitlement to a Varsovian ticket discount}
 }
 \value{
 tickets_costs_daily_ZTM returns a list containing following components
@@ -25,5 +25,5 @@ tickets_costs_daily_ZTM returns a list containing following components
 tickets_costs_daily_ZTM chooses optimat tickets and calculates minimal daily cost of commuting by warsaw public transport.
 }
 \examples{
-tickets_costs_daily_ZTM(travel_time=60, discount=TRUE, zone=1, warszawiak=TRUE)
+tickets_costs_daily_ZTM(travel_time=60, discount=TRUE, zone=1, varsovian=TRUE)
 }
