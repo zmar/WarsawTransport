@@ -55,22 +55,29 @@ tickets_costs_daily_ZTM <- function(travel_time, discount, zone, varsovian) {
         # regular and varsovian tariff
         varsovian_filter <- c(FALSE, TRUE)
     }
-    # zone_filter indicates what kind of tariff zone you are travelling through: 1, 2 or 1 and 2 (3)
+    # zone_filter indicates what kind of ticket you are allowed to use: 1st zone, 2nd zone or 1st and 2nd zone
     if (zone == 1) {
-        # you are allowed to
+        # tickets for 1st zone and tickets for 1st and 2nd zone
         zone_filter <- c(1, 3)
     } else {
         if (zone == 2) {
+            # tickets for 2nd zone and for 1st and 2nd zone
             zone_filter <- c(2, 3)
         } else {
+            # tickets for 1st and 2nd zone
             zone_filter <- 3
         }
     }
-    # Filtr
+    # selecting tickets form ztm_prices (tickets price list) based  on values of discount, zone_filter and varsovian_filter objects
     filter <- (ztm_prices$discount == discount & (ztm_prices$zone %in% zone_filter) & (ztm_prices$varsovian %in% varsovian_filter))
-    tickets <- ceiling(travel_time/ztm_prices$time_min) * ceiling(1/ceiling(ztm_prices$time_min/1440))
-    # koszt biletow
+    # Calculating the number of tickets for a given travel time during one year -  number of tickets needed in one day multiplied by number of periods of time a given ticket type is valid
+    tickets <- ceiling(travel_time/ztm_prices$time_min) * ceiling(1/ceiling(ztm_prices$time_min/1440)) # 1440 - number of minutes in one day
+    # Calculating cost of tickets - number of tickets multiplied by price
     tickets_cost <- tickets * ztm_prices$price
+    # exporting data on optimal ticket:
+    ## ztm_ticket - optimal ticket characteristics
+    ## number_of_tickets - number of optimal tickets
+    ## tickets_cost - optimal ticket total cost
     return(list(ztm_ticket = ztm_prices[tickets_cost == min(tickets_cost[filter]) & filter, ], number_of_tickets = tickets[tickets_cost ==
         min(tickets_cost[filter]) & filter], tickets_cost = tickets_cost[tickets_cost == min(tickets_cost[filter]) & filter]))
 }
@@ -124,27 +131,37 @@ tickets_costs_monthly_ZTM <- function(travel_time, discount, zone, varsovian) {
     if (is.logical(varsovian) == FALSE) {
       stop("Error: argument varsovian is not logical. Please enter TRUE or FALSE.")
     }
-    # filtr ze wzgledu na przywileje varsoviana
+    # varsovian filter indicates what kind of tariff you are granted - regular (FALSE) or regular and varsovian (FALSE and TRUE)) )
     if (varsovian == FALSE) {
-        varsovian_filter <- FALSE
+      # only regular tariff
+      varsovian_filter <- FALSE
     } else {
-        varsovian_filter <- c(FALSE, TRUE)
+      # regular and varsovian tariff
+      varsovian_filter <- c(FALSE, TRUE)
     }
-    # filtr ze wzgledu na strefe
+    # zone_filter indicates what kind of ticket you are allowed to use: 1st zone, 2nd zone or 1st and 2nd zone
     if (zone == 1) {
-        zone_filter <- c(1, 3)
+      # tickets for 1st and for 1st and 2nd zone
+      zone_filter <- c(1, 3)
     } else {
-        if (zone == 2) {
-            zone_filter <- c(2, 3)
-        } else {
-            zone_filter <- 3
-        }
+      if (zone == 2) {
+        # tickets for 2nd and for 1st and 2nd zone
+        zone_filter <- c(2, 3)
+      } else {
+        # tickets for 1st and 2nd zone
+        zone_filter <- 3
+      }
     }
-    # Filtr
+    # selecting tickets form ztm_prices (tickets price list) based  on values of discount, zone_filter and varsovian_filter objects
     filter <- (ztm_prices$discount == discount & (ztm_prices$zone %in% zone_filter) & (ztm_prices$varsovian %in% varsovian_filter))
-    tickets <- ceiling(travel_time/ztm_prices$time_min) * ceiling(20/ceiling(ztm_prices$time_min/1440))
-    # koszt biletow
+    # Calculating the number of tickets for a given travel time during one year -  number of tickets needed in one day multiplied by number of periods of time a given ticket type is valid
+    tickets <- ceiling(travel_time/ztm_prices$time_min) * ceiling(20/ceiling(ztm_prices$time_min/1440)) # 1440 - number of minutes in one day; 20 - number of working days in month
+    # Calculating cost of tickets - number of tickets multiplied by price
     tickets_cost <- tickets * ztm_prices$price
+    # exporting data on optimal ticket:
+    ## ztm_ticket - optimal ticket characteristics
+    ## number_of_tickets - number of optimal tickets
+    ## tickets_cost - optimal ticket total cost
     return(list(ztm_ticket = ztm_prices[tickets_cost == min(tickets_cost[filter]) & filter, ], number_of_tickets = tickets[tickets_cost ==
         min(tickets_cost[filter]) & filter], tickets_cost = tickets_cost[tickets_cost == min(tickets_cost[filter]) & filter]))
 }
@@ -198,27 +215,37 @@ tickets_costs_annual_ZTM <- function(travel_time, discount, zone, varsovian) {
     if (is.logical(varsovian) == FALSE) {
       stop("Error: argument varsovian is not logical. Please enter TRUE or FALSE.")
     }
-    # filtr ze wzgledu na przywileje varsoviana
+    # varsovian filter indicates what kind of tariff you are granted - regular (FALSE) or regular and varsovian (FALSE and TRUE)) )
     if (varsovian == FALSE) {
-        varsovian_filter <- FALSE
+      # only regular tariff
+      varsovian_filter <- FALSE
     } else {
-        varsovian_filter <- c(FALSE, TRUE)
+      # regular and varsovian tariff
+      varsovian_filter <- c(FALSE, TRUE)
     }
-    # filtr ze wzgledu na strefe
+    # zone_filter indicates what kind of ticket you are allowed to use: 1st zone, 2nd zone or 1st and 2nd zone
     if (zone == 1) {
-        zone_filter <- c(1, 3)
+      # tickets for 1st and for 1st and 2nd zone
+      zone_filter <- c(1, 3)
     } else {
-        if (zone == 2) {
-            zone_filter <- c(2, 3)
-        } else {
-            zone_filter <- 3
-        }
+      if (zone == 2) {
+        # tickets for 2nd and for 1st and 2nd zone
+        zone_filter <- c(2, 3)
+      } else {
+        # tickets for 1st and 2nd zone
+        zone_filter <- 3
+      }
     }
-    # Filtr
+    # selecting tickets form ztm_prices (tickets price list) based  on values of discount, zone_filter and varsovian_filter objects
     filter <- (ztm_prices$discount == discount & (ztm_prices$zone %in% zone_filter) & (ztm_prices$varsovian %in% varsovian_filter))
-    tickets <- ceiling(travel_time/ztm_prices$time_min) * ceiling(365/ceiling(ztm_prices$time_min/1440))
-    # koszt biletow
+    # Calculating the number of tickets for a given travel time during one year -  number of tickets needed in one day multiplied by number of periods of time a given ticket type is valid
+    tickets <- ceiling(travel_time/ztm_prices$time_min) * ceiling(365/ceiling(ztm_prices$time_min/1440)) # 1440 - number of minutes in one day; 365 - number of days in year
+    # Calculating cost of tickets - number of tickets multiplied by price
     tickets_cost <- tickets * ztm_prices$price
+    # exporting data on optimal ticket:
+    ## ztm_ticket - optimal ticket characteristics
+    ## number_of_tickets - number of optimal tickets
+    ## tickets_cost - optimal ticket total cost
     return(list(ztm_ticket = ztm_prices[tickets_cost == min(tickets_cost[filter]) & filter, ], number_of_tickets = tickets[tickets_cost ==
         min(tickets_cost[filter]) & filter], tickets_cost = tickets_cost[tickets_cost == min(tickets_cost[filter]) & filter]))
 }

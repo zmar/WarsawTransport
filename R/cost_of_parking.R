@@ -36,10 +36,10 @@ cost_of_parking <- function(parking_time) {
     }
     # calculation cost of each hour of parking
     if (minutes > 0) {
-        # if minutes > 0 - calculating cost of each hour of parking by multiplicating tariff vector by vector reprezenting each full hours by 1 and each started hour by minutes object
+        # if minutes > 0 - calculating cost of each hour of parking -  tariff vector multiplied by vector reprezenting each full hours by 1 and last started hour by object 'minutes'
         cost <- tariff * c(rep(1, hours), minutes)
     } else {
-        # if minutes <=0 - calculating cost of each hour of parking by multiplicating tariff vector by vector reprezenting each full hours by 1 and each started hour by minutes object
+        # if minutes <=0 - calculating cost of each hour of parking - tariff vector multiplied by vector reprezenting each full hours by 1
         cost <- tariff * rep(1, hours)
     }
     # adding costs together
