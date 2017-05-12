@@ -27,7 +27,7 @@ tickets_costs_daily_ZTM <- function(travel_time, discount, zone, varsovian) {
     if (length(discount) != 1) {
         stop("Error: argument discount is not a vector of length 1. Please enter TRUE or FALSE.")
     }
-    if (is.logical(discount) == FALSE) {
+    if (is.logical(discount) == FALSE | is.na(discount) ) {
         stop("Error: argument discount is not logical. Please enter TRUE or FALSE.")
     }
     # Exception handling for zone argument
@@ -111,7 +111,7 @@ tickets_costs_monthly_ZTM <- function(travel_time, discount, zone, varsovian) {
     if (length(discount) != 1) {
       stop("Error: argument discount is not a vector of length 1. Please enter TRUE or FALSE.")
     }
-    if (is.logical(discount) == FALSE) {
+    if (is.logical(discount) == FALSE | is.na(discount)) {
       stop("Error: argument discount is not logical. Please enter TRUE or FALSE.")
     }
     # Exception handling for zone argument
@@ -192,10 +192,10 @@ tickets_costs_annual_ZTM <- function(travel_time, discount, zone, varsovian) {
       stop("Error: argument travel_time is smaller than or equal to 0 or greater than 1440. Please enter numeric from range (0,1440].")
     }
     # Exception handling for discount argument
-    if (length(discount) != 1) {
+    if (length(discount) != 1 ) {
       stop("Error: argument discount is not a vector of length 1. Please enter TRUE or FALSE.")
     }
-    if (is.logical(discount) == FALSE) {
+    if (is.logical(discount) == FALSE | is.na(discount)) {
       stop("Error: argument discount is not logical. Please enter TRUE or FALSE.")
     }
     # Exception handling for zone argument
