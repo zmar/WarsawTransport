@@ -44,7 +44,7 @@ tickets_costs_daily_ZTM <- function(travel_time, discount, zone, varsovian) {
     if (length(varsovian) != 1) {
         stop("Error: argument varsovian is not a vector of length 1. Please enter TRUE or FALSE.")
     }
-    if (is.logical(varsovian) == FALSE) {
+    if (is.logical(varsovian) == FALSE | is.na(varsovian)) {
         stop("Error: argument varsovian is not logical. Please enter TRUE or FALSE.")
     }
     # varsovian filter indicates what kind of tariff you are granted - regular (FALSE) or regular and varsovian (FALSE and TRUE)) )
@@ -76,7 +76,7 @@ tickets_costs_daily_ZTM <- function(travel_time, discount, zone, varsovian) {
     # Calculating cost of tickets - number of tickets multiplied by price
     tickets_cost <- tickets * ztm_prices$price
     # exporting data on optimal ticket: ztm_ticket - optimal ticket characteristics number_of_tickets - number of optimal tickets tickets_cost - optimal ticket total cost
-    return(list(ztm_ticket = ztm_prices[tickets_cost == min(tickets_cost[filter]) & filter, ], number_of_tickets = tickets[tickets_cost == min(tickets_cost[filter]) & filter], 
+    return(list(ztm_ticket = ztm_prices[tickets_cost == min(tickets_cost[filter]) & filter, ], number_of_tickets = tickets[tickets_cost == min(tickets_cost[filter]) & filter],
         tickets_cost = tickets_cost[tickets_cost == min(tickets_cost[filter]) & filter]))
 }
 #' Calculate minimal monthly cost of optimal ticket
@@ -126,7 +126,7 @@ tickets_costs_monthly_ZTM <- function(travel_time, discount, zone, varsovian) {
     if (length(varsovian) != 1) {
         stop("Error: argument varsovian is not a vector of length 1. Please enter TRUE or FALSE.")
     }
-    if (is.logical(varsovian) == FALSE) {
+    if (is.logical(varsovian) == FALSE | is.na(varsovian)) {
         stop("Error: argument varsovian is not logical. Please enter TRUE or FALSE.")
     }
     # varsovian filter indicates what kind of tariff you are granted - regular (FALSE) or regular and varsovian (FALSE and TRUE)) )
@@ -158,7 +158,7 @@ tickets_costs_monthly_ZTM <- function(travel_time, discount, zone, varsovian) {
     # Calculating cost of tickets - number of tickets multiplied by price
     tickets_cost <- tickets * ztm_prices$price
     # exporting data on optimal ticket: ztm_ticket - optimal ticket characteristics number_of_tickets - number of optimal tickets tickets_cost - optimal ticket total cost
-    return(list(ztm_ticket = ztm_prices[tickets_cost == min(tickets_cost[filter]) & filter, ], number_of_tickets = tickets[tickets_cost == min(tickets_cost[filter]) & filter], 
+    return(list(ztm_ticket = ztm_prices[tickets_cost == min(tickets_cost[filter]) & filter, ], number_of_tickets = tickets[tickets_cost == min(tickets_cost[filter]) & filter],
         tickets_cost = tickets_cost[tickets_cost == min(tickets_cost[filter]) & filter]))
 }
 #' Calculate minimal annual cost of optimal ticket
@@ -208,7 +208,7 @@ tickets_costs_annual_ZTM <- function(travel_time, discount, zone, varsovian) {
     if (length(varsovian) != 1) {
         stop("Error: argument varsovian is not a vector of length 1. Please enter TRUE or FALSE.")
     }
-    if (is.logical(varsovian) == FALSE) {
+    if (is.logical(varsovian) == FALSE | is.na(varsovian)) {
         stop("Error: argument varsovian is not logical. Please enter TRUE or FALSE.")
     }
     # varsovian filter indicates what kind of tariff you are granted - regular (FALSE) or regular and varsovian (FALSE and TRUE)) )
@@ -240,6 +240,6 @@ tickets_costs_annual_ZTM <- function(travel_time, discount, zone, varsovian) {
     # Calculating cost of tickets - number of tickets multiplied by price
     tickets_cost <- tickets * ztm_prices$price
     # exporting data on optimal ticket: ztm_ticket - optimal ticket characteristics number_of_tickets - number of optimal tickets tickets_cost - optimal ticket total cost
-    return(list(ztm_ticket = ztm_prices[tickets_cost == min(tickets_cost[filter]) & filter, ], number_of_tickets = tickets[tickets_cost == min(tickets_cost[filter]) & filter], 
+    return(list(ztm_ticket = ztm_prices[tickets_cost == min(tickets_cost[filter]) & filter, ], number_of_tickets = tickets[tickets_cost == min(tickets_cost[filter]) & filter],
         tickets_cost = tickets_cost[tickets_cost == min(tickets_cost[filter]) & filter]))
 }
