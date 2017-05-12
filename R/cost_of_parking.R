@@ -19,7 +19,7 @@ cost_of_parking <- function(parking_time) {
     }
     # extracting minutes form parking time
     minutes <- parking_time%%1
-    # extracting hours  form parking time
+    # extracting hours form parking time
     hours <- floor(parking_time)
     # parking time - logical indicator of length of parking time: 1h, 2h, 3h or 4 and every next hour
     time <- 0:4 < (hours + ceiling(minutes))
@@ -30,13 +30,12 @@ cost_of_parking <- function(parking_time) {
         # Shortening the tariff to the length of parking time
         tariff <- c(tariff, rep(tariff[4], hours + ceiling(minutes) - length(tariff)))
     } else {
-    # if parking time >= 5 hours
-        # Extending the tariff to the length of parking time
+        # if parking time >= 5 hours Extending the tariff to the length of parking time
         tariff <- c(tariff[1:(hours + ceiling(minutes))])
     }
     # calculation cost of each hour of parking
     if (minutes > 0) {
-        # if minutes > 0 - calculating cost of each hour of parking -  tariff vector multiplied by vector reprezenting each full hours by 1 and last started hour by object 'minutes'
+        # if minutes > 0 - calculating cost of each hour of parking - tariff vector multiplied by vector reprezenting each full hours by 1 and last started hour by object 'minutes'
         cost <- tariff * c(rep(1, hours), minutes)
     } else {
         # if minutes <=0 - calculating cost of each hour of parking - tariff vector multiplied by vector reprezenting each full hours by 1
